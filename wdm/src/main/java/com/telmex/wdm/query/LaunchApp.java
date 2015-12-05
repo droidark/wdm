@@ -51,21 +51,24 @@ public class LaunchApp {
 	}
 	
 	public static void main(String[] args){
-//		LaunchApp test = new LaunchApp();
-//		System.out.println(test.getWdm("HUAWEI", "12").get(0).getLabel());
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		Criteria cr = session.createCriteria(CatWdm.class)
-				.setProjection(Projections.projectionList()
-						.add(Projections.property("id"),"id")
-						.add(Projections.property("tecnologia"), "tecnologia"))
-				.setResultTransformer(Transformers.aliasToBean(CatWdm.class));
 		
-		List<CatWdm> list = cr.list();
-		System.out.println(list);
-		for(CatWdm h:list){
-			System.out.println(h.getId());
-			System.out.println(h.getTecnologia());
-		} 
+		Criteria result = session.createCriteria(CatWdm.class)
+				.setProjection(Projections.projectionList()
+						.add(Projections.property("proveedorTx"))
+						.add(Projections.groupProperty("proveedorTx")));
+		
+		
+		List<Object[]> listilla = (List<Object[]>) result.list();
+		List<CatWdm> objeto=new ArrayList<CatWdm>();
+		for(Object[] k:listilla){
+			CatWdm barrido =new CatWdm();
+			System.out.println(barrido);
+			barrido.setProveedorTx((String)k[0]);
+			System.out.println(barrido.getProveedorTx());
+			objeto.add(barrido);
+		}
+		
 	}
 }
