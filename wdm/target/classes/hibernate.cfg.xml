@@ -13,5 +13,6 @@
         <property name="format_sql">false</property>
         <property name="show_sql">true</property>
         <mapping resource="com/telmex/wdm/model/CatWdm.hbm.xml"/>
+        <mapping resource="com/telmex/wdm/model/SaibConsultaRequest.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
